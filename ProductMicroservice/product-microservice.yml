@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: ProductMicroservice
+  cloud:
+    config:
+      uri: http://localhost:8888 # Adresse de votre Config Server
+  config:
+    import: "optional:configserver:"
+    import-check:
+      enabled: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+    zipkin:
+      endpoint: http://localhost:9411/api/v2/spans
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+resilience4j:
+  retry:
+    instances:
+      myRetry:
+        max-attempts: 3 # Nombre maximum de tentatives
+        wait-duration: 500ms # Durée entre chaque tentative
+      rate-limiter:
+        instances:
+          myRateLimiter:
+            limit-for-period: 5 # Nombre de requêtes par période
+            limit-refresh-period: 1s # Période de rafraîchissement (1 seconde)
+            timeout-duration: 500ms # Durée de timeout pour une requête
