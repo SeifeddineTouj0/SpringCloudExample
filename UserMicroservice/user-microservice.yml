@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: UserMicroservice
+  cloud:
+    config:
+      uri: http://localhost:8888 # Adresse de votre Config Server
+  config:
+    import: "optional:configserver:"
+    import-check:
+      enabled: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/ # Adresse de votre Eureka Server
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    zipkin:
+      endpoint: http://localhost:9411/api/v2/spans
