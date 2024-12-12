@@ -1,4 +1,4 @@
-package com.example.UserMicroservice.Entities;
+package com.example.ProductMicroservice.Entities;
 import jakarta.persistence.*;
 
 @Entity

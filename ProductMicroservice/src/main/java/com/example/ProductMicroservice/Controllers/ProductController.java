@@ -1,13 +1,14 @@
-package com.example.UserMicroservice.Controllers;
+package com.example.ProductMicroservice.Controllers;
 
-import com.example.UserMicroservice.Entities.Product;
-import com.example.UserMicroservice.Services.ProductService;
+import com.example.ProductMicroservice.Services.ProductService;
+import com.example.ProductMicroservice.Entities.Product;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -18,12 +19,22 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Retry(name = "myRetry", fallbackMethod = "fallback")
     @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallback")
     @CircuitBreaker(name = "productmicroService", fallbackMethod = "fallback")
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/users")
+    public String getUsers() {
+    // Exemple de requête à un autre microservice avec Ribbon
+            String userServiceUrl = "http://userMicroservice/users"; // Utilisation de Ribbon pour l'URL
+            return restTemplate.getForObject(userServiceUrl, String.class);
     }
 
     @GetMapping("/{id}")

@@ -1,7 +1,7 @@
-package com.example.UserMicroservice.Services;
+package com.example.ProductMicroservice.Services;
 
-import com.example.UserMicroservice.Entities.Product;
-import com.example.UserMicroservice.Repositories.ProductRepository;
+import com.example.ProductMicroservice.Entities.Product;
+import com.example.ProductMicroservice.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
