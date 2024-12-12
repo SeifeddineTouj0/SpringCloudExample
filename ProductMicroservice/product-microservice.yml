@@ -38,3 +38,7 @@ resilience4j:
             limit-for-period: 5 # Nombre de requêtes par période
             limit-refresh-period: 1s # Période de rafraîchissement (1 seconde)
             timeout-duration: 500ms # Durée de timeout pour une requête
+ribbon:
+  eureka:
+    enabled: false
+  listOfServers: localhost:8081,localhost:8082
